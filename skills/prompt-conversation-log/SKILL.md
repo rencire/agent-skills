@@ -12,11 +12,15 @@ or long-lived workstreams are grouped with `thread_id`.
 
 ## Where To Log
 
-Prefer the most specific existing project log, but write event-level JSONL:
+Prefer the most specific existing repo-local log, but keep event-level JSONL in
+the repo's metadata area when the capture is harness-oriented:
 
-- `docs/projects/<project>/conversation-events.jsonl`
-- `docs/epics/*-events.jsonl`
-- `docs/tasks/*-events.jsonl`
+- `.agents/conversation-events.jsonl`
+- `.agents/<project>/conversation-events.jsonl` when a repo scopes logs per project
+- `docs/projects/<project>/conversation-events.jsonl` only when the project
+  explicitly treats the log as user-facing documentation
+- `docs/epics/*-events.jsonl` and `docs/tasks/*-events.jsonl` only when the log
+  is meant to live with those planning documents
 - `AGENTS.md` only for durable repo-wide lessons, not routine dialogue notes
 
 If a project already has a Markdown prompt log, keep it for human browsing and
@@ -46,4 +50,6 @@ Read [schema.md](references/schema.md) for the field layout.
 This is the experimental version of the logging path. The longer-term goal is
 to have the harness write the same JSON records automatically, with the skill
 serving as the schema and workflow guide. Human-readable summaries should be
-derived from the event stream, not treated as the source of truth.
+derived from the event stream, not treated as the source of truth. Repos that
+want harness or metadata capture to stay out of docs should keep the canonical
+log under `.agents/`.
