@@ -32,13 +32,35 @@ Store one JSON object per event, one line per object.
 
 Read [schema.md](references/schema.md) for the field layout.
 
+## IDs And Lifecycles
+
+Use these ids for different levels of grouping:
+
+- `thread_id`: the durable user-visible workstream, such as a Codex thread,
+  issue, PR, project task, or long-running topic. Keep this stable across
+  multiple agent runs that continue the same work.
+- `session_id`: one contiguous agent or harness capture lifecycle inside a
+  thread. In interactive Codex, this is usually one assistant execution after a
+  user message, ending when the assistant sends a final answer, is interrupted,
+  errors, or hands off.
+- `turn_id`: one user interaction unit and the assistant/tool activity caused
+  by it.
+- `event_id`: one JSONL record.
+
+A simple Codex exchange often has one `session_id` per `turn_id`, but do not
+define them as the same thing. One user turn can spawn multiple sessions when
+sub-agents, retries, or restarts are involved. One session can also include
+multiple turns when the user clarifies while the same assistant run is still
+active.
+
 ## Writing Rules
 
 - Capture raw user and assistant message text when available.
 - Give every event a stable `thread_id`, stable `session_id`, unique
   `event_id`, and monotonic `sequence`.
 - Use `thread_id` for the user's visible work thread or task thread. Use
-  `session_id` for a contiguous capture session within that thread.
+  `session_id` for a contiguous agent or harness capture lifecycle within that
+  thread.
 - Include tool calls and tool outputs as separate events when they matter for
   later analysis.
 - Add compact decision, annotation, artifact, and run-end events instead of

@@ -1,15 +1,16 @@
 # Event JSONL Schema
 
 Use one JSON object per event, written as a single line. Events from the same
-workstream share a `thread_id`. Events from the same contiguous capture session
-also share a `session_id` and are ordered by `sequence`.
+durable workstream share a `thread_id`. Events from the same contiguous agent
+or harness capture lifecycle also share a `session_id` and are ordered by
+`sequence`.
 
 ## Required Fields
 
 - `schema_version`: integer, start with `4`
 - `record_type`: string, use `conversation_event`
-- `thread_id`: stable id for the visible work thread or task thread
-- `session_id`: stable id shared by every event in the capture session
+- `thread_id`: stable id for the durable visible workstream
+- `session_id`: stable id shared by every event in one contiguous capture lifecycle
 - `event_id`: unique id for this event
 - `sequence`: integer, monotonically increasing within the session
 - `timestamp`: ISO-8601 timestamp
@@ -41,17 +42,24 @@ also share a `session_id` and are ordered by `sequence`.
 
 ## ID Semantics
 
-- `thread_id`: groups related work across one or more conversations. Use this
-  to distinguish multiple simultaneous threads with the same agent.
-- `session_id`: groups one contiguous capture session inside a thread. A
-  resumed or restarted thread may get a new `session_id` while keeping the same
-  `thread_id`.
-- `turn_id`: groups the events caused by one user turn, such as an assistant
-  response plus tool calls and tool results.
+- `thread_id`: groups related work across one or more sessions. Use this for
+  the durable user-visible workstream, such as a Codex thread, issue, PR,
+  project task, or long-running topic.
+- `session_id`: groups one contiguous agent or harness capture lifecycle inside
+  a thread. In interactive Codex, this is usually one assistant execution after
+  a user message. A resumed or restarted thread usually gets a new `session_id`
+  while keeping the same `thread_id`.
+- `turn_id`: groups the events caused by one user interaction unit, such as a
+  user message plus the assistant/tool activity it triggers.
 - `event_id`: identifies exactly one event.
 - `agent_id`: identifies the agent or harness instance when available. Do not
   use `agent_id` as the work grouping key because one agent can serve multiple
   threads.
+
+In simple interactive logging, one `turn_id` often maps to one `session_id`.
+Keep both fields because one turn can spawn multiple sessions through sub-agents
+or retries, and one long-running session can include multiple turns when the
+user clarifies while the same assistant run is still active.
 
 `session_start` content:
 
