@@ -1,6 +1,6 @@
 ---
 name: dev-loop
-description: Use for non-trivial implementation work before committing: clarify behavior, test first when appropriate, implement narrowly, verify, refactor, re-verify, scan for secrets/security issues, update docs, then commit.
+description: Use for non-trivial implementation work before committing: clarify behavior, test first when appropriate, implement narrowly, verify, refactor, re-verify, add concise behavior comments when code is not obvious, scan for secrets/security issues, update docs, then commit.
 ---
 
 # Dev Loop
@@ -13,7 +13,7 @@ Use this skill for non-trivial implementation work.
 2. If this is library or application code and the behavior is testable, write or
    update a failing test first.
 3. Implement the smallest clear change that satisfies the behavior.
-4. Add comments only where context is not obvious from the code.
+4. Add comments only where context is not obvious from the code. When code is dense or tricky, add a short comment that explains the behavior, invariant, or why the code is shaped that way, not a mechanical restatement.
 5. Run the narrowest meaningful tests or checks.
 6. Once green, refactor for clarity and concision.
 7. Rerun the same tests or checks after refactoring.
@@ -32,6 +32,7 @@ Use this skill for non-trivial implementation work.
 - Do not force TDD for config-only or deployment-only changes where tests are
   not meaningful.
 - Prefer narrow verification before broad expensive checks.
+- Prefer a brief, behavior-focused comment over leaving opaque code uncommented when a reader would otherwise have to reverse-engineer intent.
 - Do not mix unrelated cleanup with the behavior change.
 - Do not leave complete, verified work uncommitted at the end of a turn. If the
   worktree already has unrelated edits, split or commit only your logical
