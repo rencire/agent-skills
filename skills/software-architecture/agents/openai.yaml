@@ -1,0 +1,7 @@
+interface:
+  display_name: "Software Architecture"
+  short_description: "Refactor toward clean module boundaries"
+  default_prompt: "Use $software-architecture to review the module boundaries and propose the smallest behavior-preserving split."
+
+policy:
+  allow_implicit_invocation: true
