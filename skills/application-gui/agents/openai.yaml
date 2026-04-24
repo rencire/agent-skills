@@ -1,0 +1,7 @@
+interface:
+  display_name: "Application GUI"
+  short_description: "Keep GUI shells thin and split by responsibility"
+  default_prompt: "Use $application-gui to review GUI module boundaries, screen composition, and style ownership."
+
+policy:
+  allow_implicit_invocation: true

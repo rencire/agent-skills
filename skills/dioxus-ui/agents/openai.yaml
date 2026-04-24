@@ -1,0 +1,7 @@
+interface:
+  display_name: "Dioxus UI"
+  short_description: "Dioxus component structure and styling boundaries"
+  default_prompt: "Use $dioxus-ui for Dioxus component layout, rsx composition, and styling decisions."
+
+policy:
+  allow_implicit_invocation: true
