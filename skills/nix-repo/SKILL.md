@@ -1,6 +1,6 @@
 ---
 name: nix-repo
-description: Use for implementation work in Nix-managed repos: read the local repo docs first, run commands through nix develop, and keep Nix-specific environment guidance separate from the generic dev loop.
+description: "Use for implementation work in Nix-managed repos: read the local repo docs first, run commands through nix develop, and keep Nix-specific environment guidance separate from the generic dev loop."
 ---
 
 # Nix Repo
