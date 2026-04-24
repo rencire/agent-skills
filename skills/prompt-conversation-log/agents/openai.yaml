@@ -1,0 +1,7 @@
+interface:
+  display_name: "Prompt Conversation Log"
+  short_description: "Record durable conversation and tool events"
+  default_prompt: "Use $prompt-conversation-log to capture a durable event-level log of the prompt, tool calls, decisions, and outcomes."
+
+policy:
+  allow_implicit_invocation: true
