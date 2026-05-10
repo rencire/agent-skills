@@ -1,0 +1,7 @@
+interface:
+  display_name: "Domain-Driven Design"
+  short_description: "Model business domains with DDD building blocks and strategic patterns"
+  default_prompt: "Use $domain-driven-design to review the domain model, check that code reflects the Ubiquitous Language, and identify aggregate or bounded context boundary issues."
+
+policy:
+  allow_implicit_invocation: true
