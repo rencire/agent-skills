@@ -1,0 +1,7 @@
+interface:
+  display_name: "System Architecture"
+  short_description: "Choose architectural styles and evaluate system-level trade-offs"
+  default_prompt: "Use $system-architecture to evaluate the architectural style, identify the key architecture characteristics, and document the trade-offs."
+
+policy:
+  allow_implicit_invocation: true

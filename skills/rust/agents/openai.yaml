@@ -1,0 +1,7 @@
+interface:
+  display_name: "Rust"
+  short_description: "Idiomatic Rust module structure and ownership-aware API design"
+  default_prompt: "Use $rust to review the module layout, crate boundaries, and ownership patterns and propose the smallest idiomatic improvement."
+
+policy:
+  allow_implicit_invocation: true
