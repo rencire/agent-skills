@@ -69,6 +69,25 @@ Keep as **modules** within a crate when:
 - Prefer newtype wrappers over type aliases when the distinction matters at the call site
 - Seal traits that are not intended for external implementation using a private supertrait
 
+## Async Rust
+
+Async introduces additional ownership and lifetime pressure at module boundaries.
+
+- Choose one async runtime (almost always `tokio`) at the binary level and do
+  not let the choice leak into library crates — library code should be
+  runtime-agnostic where possible
+- `async fn` in traits requires `async_trait` (pre-1.75) or the stabilized
+  RPITIT syntax (1.75+); prefer the stable syntax when the MSRV allows it
+- `Send` bounds propagate — if a future must cross thread boundaries, every
+  type it holds must be `Send`; design shared state with this in mind upfront
+- Prefer `Arc<Mutex<T>>` over `Rc<RefCell<T>>` at async module boundaries;
+  keep lock scope as narrow as possible and never hold a lock across an `.await`
+- Separate CPU-bound work from async tasks — offload blocking operations with
+  `tokio::task::spawn_blocking` rather than blocking inside an async fn
+- Module boundaries are a good place to encapsulate the async runtime details:
+  expose sync-friendly or `impl Future`-returning interfaces so callers are not
+  forced to adopt a specific runtime
+
 ## Practical Split Signals
 
 - `main.rs` contains business logic

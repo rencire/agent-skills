@@ -40,11 +40,18 @@ the `system-architecture` skill instead.
 
 ## Good Extraction Targets
 
+These are examples grouped by context — not an exhaustive list.
+
+**UI codebases**
 - page or UI composition vs shared widgets
 - orchestration or state vs rendering
-- persistence or parsing vs presentation
-- transport or API adapters vs domain rules
+- client-side data fetching vs presentation logic
+
+**Backend / general**
+- persistence or parsing vs domain logic
+- transport or API adapters vs business rules
 - repeated transforms with a named responsibility
+- configuration loading vs the code that uses configuration
 
 ## When To Leave It Alone
 

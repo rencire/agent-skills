@@ -24,6 +24,10 @@ use `software-architecture`. For system-level style choices, use
 
 ## Modeling Workflow
 
+DDD is inherently iterative — these steps are a starting orientation, not a
+linear sequence. Expect to loop back as domain understanding deepens,
+breakthroughs reframe the model, or new use cases expose wrong boundaries.
+
 1. Identify the Ubiquitous Language for this context — what terms do domain
    experts actually use?
 2. Classify domain objects: entity (identity matters), value object (attributes
@@ -34,6 +38,9 @@ use `software-architecture`. For system-level style choices, use
 5. Define repository interfaces (one per aggregate root) in the domain layer.
 6. Map bounded contexts and choose integration patterns at each boundary.
 7. Identify the Core Domain and ensure it is receiving proportionate investment.
+
+Return to step 1 whenever the language drifts, a refactoring reveals a hidden
+concept, or a use case no longer fits the current boundaries.
 
 ## Building Block Heuristics
 
@@ -113,6 +120,15 @@ or tooling with no domain rules, the overhead of full DDD is not worth it.
 Apply selectively: the Ubiquitous Language and bounded contexts are almost
 always useful; the full building block taxonomy is most valuable in the Core
 Domain.
+
+## Relationship to Other Skills
+
+Bounded contexts are the natural input to system-level decomposition decisions.
+Once bounded contexts are identified and their integration patterns chosen, use
+the `system-architecture` skill to decide how those boundaries map to deployment
+units — whether a bounded context becomes a separate service, a module within a
+monolith, or something in between. The context map (which contexts communicate,
+and how) directly informs which architectural style is appropriate.
 
 ## Reference
 

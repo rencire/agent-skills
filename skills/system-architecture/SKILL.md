@@ -91,6 +91,23 @@ What does this enable? What does it make harder?
 What else was evaluated and why was it not chosen?
 ```
 
+## Relationship to Domain-Driven Design
+
+Bounded contexts from DDD are the natural unit for service decomposition.
+Before deciding on an architectural style, use the `domain-driven-design` skill
+to identify bounded contexts and draw the context map. Then use this skill to
+decide how those contexts map to deployment units:
+
+- A single bounded context can be a module in a monolith, a service in a
+  service-based architecture, or a microservice — the choice is a system
+  architecture decision driven by the deployment and team characteristics, not
+  the domain model itself.
+- The context map integration patterns (ACL, shared kernel, customer/supplier)
+  constrain which architectural styles are viable — a conformist relationship
+  rarely justifies a separate microservice.
+- High coupling between bounded contexts is a signal to reconsider the context
+  boundaries before choosing a distributed style.
+
 ## When To Escalate Complexity
 
 - Moving from monolith to distributed: only when independent deployability is actively blocking delivery
