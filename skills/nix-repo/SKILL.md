@@ -17,6 +17,10 @@ Use this skill for repo-local implementation work in a Nix-based project.
    `flake.nix` and get approval before expanding the dev environment.
 4. Use the generic `dev-loop` skill for the implementation workflow itself.
 
+## Homebrew vs. Nix packages
+
+- `nixpkgs.config.allowUnfree = true` only applies to Nix-managed packages. Homebrew casks (declared under `homebrew.casks`) install independently and do not require this setting — unfree casks like `google-chrome` work without it.
+
 ## Guardrails
 
 - Do not expand the dev shell without approval.
