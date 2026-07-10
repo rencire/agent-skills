@@ -16,7 +16,7 @@ Use this skill before pushing when the current change may contain secrets, machi
 
 ## Workflow
 
-1. Run the review from inside the Nix shell with `nix develop -c ...` so the scan uses the repo's declared tools.
+1. Run the review from inside the repo dev shell so the scan uses the repo's declared tools.
 2. Inspect the exact tracked change set with `jj status`, `jj diff`, or equivalent read-only Git commands before staging or pushing.
 3. Scan tracked files with `git ls-files` and `rg` patterns such as `token`, `secret`, `password`, `BEGIN .* PRIVATE KEY`, provider API key prefixes, and connection strings.
 4. Search for machine-local details that do not belong in published history, especially absolute home-directory paths and local-only hostnames.
