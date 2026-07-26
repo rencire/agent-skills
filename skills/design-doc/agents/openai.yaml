@@ -1,0 +1,7 @@
+interface:
+  display_name: "Design Doc"
+  short_description: "Structure a design doc or RFC"
+  default_prompt: "Use $design-doc to pick the right doc tier and structure a design doc or RFC for this change."
+
+policy:
+  allow_implicit_invocation: true
