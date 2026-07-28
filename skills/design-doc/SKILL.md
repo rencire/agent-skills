@@ -66,6 +66,20 @@ prescribed by the sources below; it's patterns that have worked in practice.
   rollback path, instead of prose that blurs them together), list each one so
   it gets reasoned through individually without the overhead of separate
   documents.
+  - Give each sub-decision a short label. Use one or two words naming it,
+    not a full clause.
+  - Follow the label with one plain-language sentence. State what it does
+    and why, in terms a non-expert could follow.
+  - Put technical detail after that. Option names, paths, flags, and
+    commands come last.
+  - Use this whether the sub-decision is a `###` heading with a lead
+    paragraph, or a bold label opening a bullet. The mechanism doesn't
+    matter.
+  - A reader skimming just the labels and lead sentences should get the
+    shape of the section.
+  - Reach for this only when a section is enumerating sub-decisions.
+    Sections like `Context and Scope` or `Goals and Non-Goals` are fine as
+    plain prose or a flat list.
 - **Split into standalone RFC-style decision docs.** When decisions are
   independently significant and likely to be revisited or cited on their own
   later, give each one its own short RFC (Problem, Decision, Alternatives,
