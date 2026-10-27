@@ -1,14 +1,67 @@
 ---
 name: rust
-description: Use when designing module structure, crate boundaries, or idiomatic APIs in a Rust codebase. Covers ownership-aware interface design, visibility as an API tool, and Rust-specific split heuristics.
+description: Use when designing module structure, crate boundaries, or idiomatic APIs in a Rust codebase, bumping Cargo package versions, or keeping Rust and Nix package versions in sync.
 ---
 
-# Rust Architecture
+# Rust
 
 Use this skill for Rust-specific structural decisions: crate and module layout,
 ownership-aware API design, and idiomatic organization. For language-agnostic
 module design principles, use the `software-architecture` skill. For system-level
-decisions, use `system-architecture`.
+decisions, use `system-architecture`. Use the versioning guidance below for
+Cargo package releases and Nix version synchronization.
+
+## Package Versioning
+
+Keep `Cargo.toml` as the source of truth for the package version; `Cargo.lock`
+is generated metadata. For workspace-inherited versions (`version.workspace = true`),
+edit `[workspace.package].version` in the workspace root instead.
+
+1. Update the manifest version for the requested release, for example
+   `0.1.0` to `0.1.1` for a patch bump.
+2. Run `cargo check` to refresh `Cargo.lock` and check the project.
+3. Review the manifest and lockfile diff, verify the intended version, and
+   include both files in the release commit when the lockfile is tracked.
+   Run any additional checks required by the repository's release workflow.
+
+| Task | Command |
+| --- | --- |
+| Refresh lockfile after a manual version bump and check compilation | `cargo check` |
+| Bump patch version with optional `cargo-edit` installed | `cargo set-version --bump patch` |
+| Update dependency resolutions, not the package's own version | `cargo update` |
+
+`cargo set-version` is not built into Cargo; use the manual workflow when
+`cargo-edit` is unavailable. Follow repo approval rules before adding tools.
+For workspaces, select the intended package or shared workspace version rather
+than assuming every member should receive the same bump.
+
+Common mistakes: using `cargo update` to bump the package itself, or running
+`cargo check --locked` before allowing Cargo to refresh a stale lockfile.
+
+## Nix-Managed Projects
+
+This section applies only to Rust projects managed with Nix. Use the `nix-repo`
+skill for environment guidance and prefix Cargo commands with `nix develop -c`.
+For example, after editing the Cargo version:
+
+```sh
+nix develop -c cargo check
+```
+
+### Nix Version From Cargo
+
+For a package definition at `nix/package.nix` and a manifest at `Cargo.toml`,
+derive the version instead of maintaining a second literal:
+
+```nix
+version = (builtins.fromTOML (builtins.readFile ../Cargo.toml)).package.version;
+```
+
+Adjust the path relative to the Nix file. If the crate inherits its version,
+read the workspace root manifest's `.workspace.package.version` instead.
+Verify the evaluated Nix package version matches the manifest.
+
+Avoid manually maintaining a duplicate version in Nix.
 
 ## Default Lens
 
