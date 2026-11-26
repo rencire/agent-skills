@@ -1,6 +1,6 @@
 ---
 name: vcs
-description: Use for version-control work in Git or Jujutsu repos, especially when translating between them, choosing the right commit/push workflow, or remembering the common commands.
+description: Use for version-control work in Git or Jujutsu repos, including commits, pushes, creating or updating pull requests, and formatting PR descriptions.
 ---
 
 # VCS
@@ -44,6 +44,16 @@ Use this skill for everyday version-control tasks in Git or Jujutsu.
 3. Move the bookmark to the commit you just made with `jj bookmark set <bookmark> -r @-`.
 4. Push with `jj git push --bookmark <bookmark>`.
 5. If you need to use raw `git push`, run `jj git export` first.
+
+## Pull Requests
+
+1. Inspect repository instructions, remotes, the target branch, and the complete proposed diff. Look for PR templates before writing a description.
+2. Write the body as real Markdown: headings, short paragraphs, and bullet points. Follow the repository template; otherwise use Summary and Verification, plus Deployment or Follow-up when relevant. Separate completed checks from pending checks and deployment. Do not claim activation from a build or manual smoke test.
+3. Put multiline bodies in a file or a tool's structured body field. For APIs, use a JSON serializer rather than hand-escaped JSON. Literal `\n` text is not a Markdown newline.
+4. Publish the intended commits and actually create or update the PR using the forge's supported interface. A branch push or compare URL alone is not a PR. For Forgejo, read [the Forgejo reference](references/forgejo-pull-requests.md).
+5. Read the saved PR back from the server. Verify its URL, target branch, head commit, and complete body, including line breaks. On an update, confirm the existing PR changed rather than creating a duplicate. If authentication or verification is unavailable, report that blocker rather than claiming completion.
+
+Push, merge, and deployment are separate actions: obtain the applicable authorization for each. Keep explicit deployment holds visible in the PR.
 
 ## Guardrails
 
